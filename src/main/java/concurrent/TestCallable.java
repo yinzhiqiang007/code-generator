@@ -36,8 +36,8 @@ public class TestCallable implements Callable {
 
         System.out.println(JSON.toJSONString(map));
 
-//        System.out.println(Thread.currentThread().getName()+" run ..."+a);
-//        CountDownLatchTest.countDownLatch.countDown();
+//        System.out.println(ThreadTest.currentThread().getName()+" run ..."+a);
+        CountDownLatchTest.countDownLatch.countDown();
         return null;
     }
 }

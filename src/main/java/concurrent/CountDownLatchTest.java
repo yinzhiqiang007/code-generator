@@ -8,6 +8,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 计数器
@@ -15,6 +17,9 @@ import java.util.concurrent.Future;
 public class CountDownLatchTest {
 
     static CountDownLatch countDownLatch = new CountDownLatch(4);
+
+
+
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
 
@@ -29,7 +34,7 @@ public class CountDownLatchTest {
         ThreadPoolUtil.threadPool.submit(new TestCallable(2,map) );
 //        System.out.println(future.get());
 
-//        countDownLatch.await();
+        countDownLatch.await();
 //        System.out.println(countDownLatch.getCount());
         System.out.println(JSON.toJSONString(map));
         System.out.println("=================");

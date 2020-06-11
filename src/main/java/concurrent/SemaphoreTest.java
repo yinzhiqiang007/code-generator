@@ -50,7 +50,7 @@ public class SemaphoreTest {
                 semaphore.acquire();
                 bank.save(10);
                 System.out.println(b + "账户余额为：" + bank.getAccount());
-                Thread.sleep(1000);
+                Thread.sleep(3000);
                 System.out.println("线程" + b + "存钱完毕，离开银行");
                 semaphore.release();
             } catch (InterruptedException e) {
@@ -66,27 +66,25 @@ public class SemaphoreTest {
         Bank bank = new Bank();
         // 定义10个新号量
         Semaphore semaphore = new Semaphore(2);
+        System.out.println(semaphore.availablePermits());
         // 建立一个缓存线程池
         ExecutorService es = Executors.newCachedThreadPool();
         // 建立20个线程
         for (int i = 0; i < 10; i++) {
             // 执行一个线程
             es.submit(new Thread(new NewThread(bank, semaphore)));
+
         }
 
         // 关闭线程池
         es.shutdown();
 
-        System.out.println(semaphore.getQueueLength()+"semaphore.getQueueLength()");
-
-
-
-//        Thread.sleep(1000);
+//        ThreadTest.sleep(1000);
         // 从信号量中获取两个许可，并且在获得许可之前，一直将线程阻塞
-        semaphore.acquireUninterruptibly();
-        System.out.println("到点了，工作人员要吃饭了");
-        // 释放两个许可，并将其返回给信号量
-        semaphore.release(2);
+//        semaphore.acquireUninterruptibly();
+//        System.out.println("到点了，工作人员要吃饭了");
+//         释放两个许可，并将其返回给信号量
+//        semaphore.release(2);
         System.out.println(semaphore.getQueueLength());
 
 
