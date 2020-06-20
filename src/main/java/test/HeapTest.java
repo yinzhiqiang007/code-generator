@@ -33,12 +33,8 @@ public class HeapTest {
 //            rightIndex(level);
 //        }while (index<heap.length-1);
 
-        Queue<Integer> heap = new PriorityQueue<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o2-o1;//o2-o1 最大堆，默認最小堆
-            }
-        });
+        Queue<Integer> heap = new PriorityQueue<>(Comparator.reverseOrder());//最大堆
+
         heap.add(3);
         heap.add(435);
         heap.add(45);
