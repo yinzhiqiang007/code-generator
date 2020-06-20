@@ -12,10 +12,6 @@ public class ThreadTest {
     private LinkedList list = new LinkedList();
 
     public static void main(String[] args) throws Exception {
-
-        List<String> list = null;
-
-
     }
 
 }

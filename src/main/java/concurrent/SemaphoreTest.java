@@ -1,13 +1,17 @@
 package concurrent;
 
+import sun.misc.Unsafe;
+
+import java.lang.reflect.Field;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 信号量
  */
-public class SemaphoreTest {
+public class SemaphoreTest implements java.io.Serializable  {
 
     private int a = 0;
 
@@ -68,21 +72,22 @@ public class SemaphoreTest {
         Semaphore semaphore = new Semaphore(2);
         System.out.println(semaphore.availablePermits());
         // 建立一个缓存线程池
-        ExecutorService es = Executors.newCachedThreadPool();
+
+
         // 建立20个线程
         for (int i = 0; i < 10; i++) {
             // 执行一个线程
-            es.submit(new Thread(new NewThread(bank, semaphore)));
+            ThreadPoolUtil.threadPool.submit(new Thread(new NewThread(bank, semaphore)));
 
         }
 
         // 关闭线程池
-        es.shutdown();
+//        es.shutdown();
 
 //        ThreadTest.sleep(1000);
         // 从信号量中获取两个许可，并且在获得许可之前，一直将线程阻塞
 //        semaphore.acquireUninterruptibly();
-//        System.out.println("到点了，工作人员要吃饭了");
+        System.out.println("到点了，工作人员要吃饭了");
 //         释放两个许可，并将其返回给信号量
 //        semaphore.release(2);
         System.out.println(semaphore.getQueueLength());
@@ -91,8 +96,59 @@ public class SemaphoreTest {
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        SemaphoreTest test = new SemaphoreTest();
-        test.useThread();
+
+
+    public static Unsafe createUnsafe() {
+        try {
+            Class<?> unsafeClass = Class.forName("sun.misc.Unsafe");
+            Field field = unsafeClass.getDeclaredField("theUnsafe");
+            field.setAccessible(true);
+            Unsafe unsafe = (Unsafe) field.get(null);
+            return unsafe;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    static int mark = 4;
+    static void calc(int sum1,int die){
+
+        int i = 60/15;
+        int sum2 = 0 ;
+        if(sum1%i==0){
+            sum2 = sum1/i;
+        }else{
+            sum2 = sum1/i+1;
+        }
+        mark--;
+        if(mark==0){
+            System.out.println("sum2:"+sum2);
+        }
+        System.out.println("m:"+sum2);
+        die++;
+//        System.out.println(number+"&&"+sum2);
+        if(i>=sum2+1){
+            System.out.println(i+"&&&"+sum2);
+        }
+        if(die==4){
+            System.out.println(die+"&"+sum2);
+        }
+        System.out.println(die);
+        if(sum2>1){
+            calc(sum2,die);
+        }
+
+
+    }
+
+
+
+    public static void main(String[] args)  {
+        calc(2000,0);
+
+
+
+
     }
 }
