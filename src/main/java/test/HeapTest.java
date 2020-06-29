@@ -1,5 +1,7 @@
 package test;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -33,19 +35,24 @@ public class HeapTest {
 //            rightIndex(level);
 //        }while (index<heap.length-1);
 
-        Queue<Integer> heap = new PriorityQueue<>(Comparator.reverseOrder());//最大堆
+        Queue<Integer> heap = new PriorityQueue<>(5,Comparator.reverseOrder());//最大堆
 
         heap.add(3);
         heap.add(435);
         heap.add(45);
         heap.add(34);
         heap.add(345);
+//        heap.add(445);
+
         Integer[] aa = new Integer[heap.size()];
 
         heap.toArray(aa);
-        System.out.println(aa[0]);
-        System.out.println(aa[3]);
-        System.out.println(aa[4]);
+
+        System.out.println(heap.element());
+        heap.remove();
+        heap.remove();
+        System.out.println(heap.element());
+        System.out.println(JSON.toJSONString(aa));
 
 
     }
