@@ -12,10 +12,10 @@ import java.sql.SQLException;
  */
 public class DBHandler {
 
-    public static final String url = "jdbc:mysql://106.14.29.228:3306/iot?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
+    public static final String url = "jdbc:mysql://localhost:3306/iot?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
     public static final String name = "com.mysql.jdbc.Driver";
-    public static final String user = "wanghh";
-    public static final String password = "123456";
+    public static final String user = "123";
+    public static final String password = "123";
 
     public static Connection conn = null;
     public static PreparedStatement pst = null;
